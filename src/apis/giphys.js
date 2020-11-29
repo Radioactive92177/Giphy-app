@@ -5,6 +5,6 @@ export default axios.create({
   params: {
     api_key: "K2FCdWBxSOePBye1tBcbmNf3VidnkaZZ",
     limit: 500,
-    rating: "R",
+    rating: "r",
   },
 });

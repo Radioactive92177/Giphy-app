@@ -7,9 +7,13 @@ import giphys from "../apis/giphys";
 const App = () => {
   const [gifData, setGifData] = useState([]); //* to store GIFs
   const [term, setTerm] = useState(""); //* to store the search term
+  const INITIAL_RENDER_TERM = "random"; //* to show at initial screen
 
   //? Fetching GIFs
   const searchSubmit = async (term) => {
+    if (term === "") {
+      term = INITIAL_RENDER_TERM;
+    }
     const { data } = await giphys.get("/search", {
       params: {
         q: term,
@@ -20,18 +24,13 @@ const App = () => {
 
   //? For GIFs at initial render
   useEffect(() => {
-    searchSubmit("random");
+    searchSubmit(INITIAL_RENDER_TERM);
   }, []);
 
   //? For rendering GIFs with loading condition
   const renderGiphys = () => {
     return <Gifs gifData={gifData} />;
   };
-
-  //! Empty form bug fixed
-  if (term === "") {
-    searchSubmit("random");
-  }
 
   return (
     <>
@@ -54,7 +53,7 @@ const App = () => {
       </form>
       <div className="heading">
         <p>
-          Trending <i className="fa fa-bolt" aria-hidden="true"></i>{" "}
+          Giphys <i className="fa fa-bolt" aria-hidden="true"></i>{" "}
         </p>
       </div>
 
